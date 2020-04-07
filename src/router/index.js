@@ -1,0 +1,56 @@
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Login from "../Auth/Login.vue";
+import LayoutSistema from "../views/LayoutSistema.vue";
+import Maps from "../views/Map.vue";
+import Usuarios from "../views/Usuarios.vue";
+import Alertas from "../views/Alertas.vue";
+
+// import { userAuth } from "../states/userAuth.js";
+
+Vue.use(VueRouter);
+
+const routes = [
+  {
+    path: "/",
+    component: LayoutSistema,
+    children: [
+        {
+          path: "/",
+          name: "maps",
+          component: Maps,
+        },
+        {
+          path: "/usuarios",
+          name: "usuarios",
+          component: Usuarios
+        },
+        {
+          path: "/alertas",
+          name: "alertas",
+          component: Alertas
+        }
+    ]
+  },
+  {
+      path: "/login",
+      name: "Login",
+      component: Login
+  }
+];
+
+const router = new VueRouter({
+  routes
+});
+
+let token = localStorage.getItem('user_token')
+
+router.beforeEach((to, from, next) => {
+  if((to.name !== "Login") && !token) {
+    next({ name: "Login" })
+  } else {
+    next()
+  }
+})
+
+export default router;
