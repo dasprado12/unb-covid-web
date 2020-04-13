@@ -11,6 +11,7 @@ Vue.use(VueLocalStorage)
 Vue.use( VueGoogleMaps, {
   load: {
     key: 'AIzaSyDhD5AZQnSDAnu4K1qJiytbzk7v4m9N17k',
+    libraries: ["places", "visualization"]
   },
 })
 

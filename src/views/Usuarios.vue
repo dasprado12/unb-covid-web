@@ -80,10 +80,10 @@
 
       <template v-slot:body="{ items }">
         <tbody>
-          <tr v-for="item in items" :key="item.name" 
+          <tr :style="{ backgroundColor: getColor(item)}" v-for="item in items" :key="item.name" 
             
           >
-            <td :class="{backgroundCoor: red}"> {{ item.id }}</td>
+            <td> {{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.whatsapp }}</td>
@@ -122,6 +122,7 @@ let NewUser = new User();
   export default {
     components: { contato },
     data: () => ({
+      color: '#ffffff',
       dialog: false,
       headers: [
         { text: 'ID', align: 'left', sortable: false, value: 'id' },
@@ -167,6 +168,19 @@ let NewUser = new User();
     },
 
     methods: {
+      getColor(user){
+        let birth = user.birth_date.split('/')[2]
+        let today = new Date().getFullYear()
+        let age = today - parseInt(birth)
+        console.log(user.name, age, user.risk_group)
+        if(user.risk_group.length == 0 && age < 60){
+          return '#51d61da1'
+        }else if(user.risk_group.length != 0 && age < 60 || user.risk_group.length == 0 && age >= 60 ){
+          return '#d6d31da1'
+        }else if(user.risk_group.length != 0 && age >= 60){
+          return '#d61d1da1'
+        }
+      },
       async list_user(){
         let usuario = (await NewUser.get_users()).data
         this.users = usuario
@@ -199,8 +213,7 @@ let NewUser = new User();
 
 <style scoped>
 .red{
-  background-color: red;
-  color: red;
+  background-color: #51d61d75;
 }
 /* .high {
   background-color: rgba(255,0,0,.5)

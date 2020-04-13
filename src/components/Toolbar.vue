@@ -3,8 +3,8 @@
     <v-app-bar flat app color="grey lighten-4">
       <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"> </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase grey--text">
-        <span class="font-weight-light"> SOS </span>
-        <span> Campus </span>
+        <span class="font-weight-light"> UnB </span>
+        <span> Solidaria </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="grey" @click="signout()" text>
@@ -25,7 +25,6 @@
           <v-list-item-subtitle class="title-space">
             {{ user.email }}
           </v-list-item-subtitle>
-          <!-- <account v-bind:user_id="user.user_id"></account> -->
         </v-list-item-content>
       </v-list-item>
 

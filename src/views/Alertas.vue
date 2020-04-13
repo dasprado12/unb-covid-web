@@ -61,10 +61,10 @@
 
       <template v-slot:body="{ items }">
         <tbody>
-          <tr v-for="item in items" :key="item.name" 
+          <tr :style="{ backgroundColor: getColor(item)}" v-for="item in items" :key="item.name" 
             
           >
-            <td :class="{backgroundCoor: red}"> {{ item.id }}</td>
+            <td> {{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.sintoms }}</td>
             <td>{{ item.whatsapp }}</td>
@@ -146,6 +146,17 @@ let NewUser = new Help();
     },
 
     methods: {
+      getColor(alert){
+        let amountAlerts = alert.sintoms.split(',').length
+        
+        if(amountAlerts == 1){
+          return '#51d61da1'
+        }else if(amountAlerts == 2){
+          return '#d6d31da1'
+        }else if(amountAlerts > 2){
+          return '#d61d1da1'
+        }
+      },
       async list_alerts(){
         let alerta = (await NewUser.get_helps()).data
         this.alerts = alerta
@@ -178,8 +189,8 @@ let NewUser = new Help();
 
 <style scoped>
 .red{
-  background-color: red;
-  color: red;
+  background-color: #beb64acc;
+  color: rgb(255, 251, 0);
 }
 /* .high {
   background-color: rgba(255,0,0,.5)

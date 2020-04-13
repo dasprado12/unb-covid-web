@@ -1,18 +1,34 @@
 <template>
-    <div class="">
+    <div class="">    
         <v-container>
+            {{  }}
             <gmap-map 
             ref="mymap" 
-            :center="startLocation" 
-            :zoom="zoom" 
+            :center="mapConfig.startLocation" 
+            :zoom="mapConfig.zoom" 
             style="width: 100%; height: 900px;"
-            :shape="shape"
+            
             >  
+
+                    <v-dialog width="50%" v-model="dialog">
+                        <v-card>
+                            <v-card-title>
+                                {{ userAlert.name }}
+                            </v-card-title>
+                            <v-card-text>
+                                <p> Criação: {{ userAlert.createdAt }} </p>
+                                <p> Whatsapp: {{ userAlert.whatsapp }} </p>
+                                <p> Sintomas: {{ userAlert.sintoms }} </p>
+                            </v-card-text>
+                        </v-card>
+                    </v-dialog>
+
                 <gmap-marker 
-                v-for="(item, key) in coordinates" :key="key" 
-                :position="getPosition(item)" 
-                @click="toggleInfo(item, key)"
-                :clickable="true" 
+                    v-for="item in coordinates" :key="item.id" 
+                    :position="getPosition(item)" 
+                    @click="toggleInfo(item)"
+                    :clickable="true"
+                    :icon="colorMarker(item)"
                 />
             </gmap-map>
         </v-container>
@@ -22,102 +38,79 @@
 <script>
 import { Help } from "../functions/index.js"
 
-let NewHelp = new Help();
 
+let NewHelp = new Help();
+// const mapMarker = require('../assets/red-dot.png')
 
 export default {
     name: 'map',
         data (){
             return {
-                help_request: 'oi',
-                items: [
-                    { title: 'ABERTO' },
-                    { title: 'EM ANDAMENTO' },
-                    { title: 'FECHADO' }
-                ],
-                marker: {
-                    lat: 50.60229509638775,
-                    lng: 3.0247059387528408
+                dialog: false,
+                mapConfig: {
+                    colorMarkers: {
+                        red: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                        yellow: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+                        green: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                    },
+                    zoom: 15,
+                    startLocation: {
+                        lat: -15.7639579,
+                        lng: -47.8692740,
+                    },
                 },
-                opcaoSelecionada: 'ABERTO',
-                offset: true, 
-                startLocation: {
-                    lat: -15.7639579,
-                    lng: -47.8692740,
-                },
-            shape: {
-                coords: [10, 10, 10, 15, 15, 15, 15, 10],
-                type: 'poly'
-            },
-                zoom: 15,
                 coordinates: [],
-                infoPosition: null,
-                infoOpened: false,
-                infoCurrentKey: null,
-                infoContent_user: null,
-                infoContent_assignee: null,
-                infoContent_id: null,
-                infoOptions: {
-                pixelOffset: {
-                    width: 0,
-                    height: -35
+                userAlert: {
+                    id: null,
+                    name: null,
+                    sintoms: null,
+                    whatsapp: null,
+                    user_location: null,
+                    createdAt: null,
+                    updateAt: null
                 }
-                },
-        }
-    },
+            }
+        },
     async mounted(){
         this.list_alerts();
     },
     methods:{
-      async list_alerts(){
-        let alerta = (await NewHelp.get_helps()).data
-        this.coordinates = alerta
-        let location = alerta.user_location.split(",")
-        let latitude = location[0]
-        let longitude = location[1]
-        console.log(latitude, longitude)
-      },
+        async list_alerts(){
+            let alerta = (await NewHelp.get_helps()).data
+            this.coordinates = alerta
+        },
+        colorMarker(alerta){
+            let amountAlerts = alerta.sintoms.split(',').length
+            if(amountAlerts == 1){
+                return "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            }else if(amountAlerts == 2){
+                return "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            }else if(amountAlerts > 2){
+                return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            }
+        
+        },
         getPosition: function(marker) {
             let location = marker.user_location.split(",")
             let latitude = location[0]
             let longitude = location[1]
-            console.log(latitude, longitude)
-            console.log(marker)
             return {
                 lat: parseFloat(latitude),
                 lng: parseFloat(longitude)
             }
         },
-        // toggleInfo: function(marker, key) {
-        //     this.infoPosition = this.getPosition(marker);
-        //     this.infoContent_user = marker.user;
-        //     this.infoContent_assignee = marker.assignee;
-        //     this.infoContent_id = marker.alert_id;
-        //     if (this.infoCurrentKey == key) {
-        //         this.infoOpened = !this.infoOpened;
-        //     } else {
-        //         this.infoOpened = true;
-        //         this.infoCurrentKey = key;
-        //     }
-        // },
-        // trocarOpcao(item){
-        //     this.opcaoSelecionada = item.title
-        //     this.getAlerts(item.title)
-        // },
-        // assigneeAlert(user_id){
-        //     console.log(user_id)
-        // },
-        // seeUser(nome){
-        //     this.router.push({ name: 'usuario', params: { contractId: 123 }})
-
-        //     console.log(nome)
-        // }
-    }
+        toggleInfo: function(marker) {
+            this.dialog = true
+            this.mapConfig.startLocation = this.getPosition(marker);
+            this.userAlert = Object.assign({}, marker)
+            }
+    },
+    
 }
 </script>
 
 <style scoped>
 .name_alert{
-    color: black;
+  color: black;
 }
 </style>
