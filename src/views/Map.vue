@@ -81,7 +81,7 @@ export default {
         },
         colorMarker(alerta){
             let amountAlerts = alerta.sintoms.split(',').length
-            if(amountAlerts == 1){
+            if(amountAlerts < 2){
                 return "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
             }else if(amountAlerts == 2){
                 return "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
