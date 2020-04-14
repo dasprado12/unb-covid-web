@@ -1,7 +1,26 @@
 <template>
     <div class="">    
         <v-container>
-            {{  }}
+    <v-menu offset-y>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="primary"
+          dark
+          v-on="on"
+        >
+          {{ current_city }}
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in cities"
+          :key="index"
+          @click="overlay(item)"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
             <gmap-map 
             ref="mymap" 
             :center="mapConfig.startLocation" 
@@ -22,7 +41,7 @@
                             </v-card-text>
                         </v-card>
                     </v-dialog>
-
+                <gmap-polygon :paths="paths"></gmap-polygon>
                 <gmap-marker 
                     v-for="item in coordinates" :key="item.id" 
                     :position="getPosition(item)" 
@@ -37,7 +56,7 @@
 
 <script>
 import { Help } from "../functions/index.js"
-
+import cities from "../components/Map/locations/DF.js"
 
 let NewHelp = new Help();
 // const mapMarker = require('../assets/red-dot.png')
@@ -46,6 +65,13 @@ export default {
     name: 'map',
         data (){
             return {
+                paths: null,
+                cities: [
+                    { title: 'Cidades', key: '' },
+                    { title: 'Aguas Claras', key: 'aguas_claras' },
+                    { title: 'Plano Piloto', key: 'plano_piloto' }
+                ],
+                current_city: 'Cidades',
                 dialog: false,
                 mapConfig: {
                     colorMarkers: {
@@ -73,10 +99,33 @@ export default {
         },
     async mounted(){
         this.list_alerts();
+        console.log(cities)
+        // this.get_cities();
     },
     methods:{
+        // async get_cities(){
+        //     let cidades = cities
+        //     let key = new Object()
+        //     let all_cities = []
+        //     for(let i in cidades){
+        //         key.title = i
+        //         all_cities.push(key)
+        //     }
+        //     console.log(key)
+        //     this.cities = key
+        // },
+        overlay(cidade){
+            let key = cidade['key']
+            if(key == ''){
+                this.current_city = cidade.title
+                this.paths = 'oi'
+            }else{
+                this.current_city = cidade.title
+                this.paths = cities[key]
+            }
+        },
         async list_alerts(){
-            let alerta = (await NewHelp.get_helps()).data
+        let alerta = (await NewHelp.get_helps()).data
             this.coordinates = alerta
         },
         colorMarker(alerta){
