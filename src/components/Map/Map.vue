@@ -1,19 +1,17 @@
 <template>
     <div class="">    
         <v-container>
-    <v-menu offset-y>
+    <!-- <v-menu offset-y>
       <template v-slot:activator="{ on }">
-          
         <v-btn
           color="primary"
           dark
-          outlined
           v-on="on"
         >
           {{ current_city }}
         </v-btn>
       </template>
-      <v-list>
+      <v-list></v-list>
         <v-list-item
           v-for="(item, index) in cities"
           :key="index"
@@ -22,7 +20,7 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
     
             <gmap-map 
             ref="mymap" 
@@ -32,18 +30,18 @@
             
             >  
 
-                    <v-dialog width="50%" v-model="dialog">
-                        <v-card>
-                            <v-card-title>
-                                {{ userAlert.name }}
-                            </v-card-title>
-                            <v-card-text>
-                                <p> Criação: {{ userAlert.createdAt }} </p>
-                                <p> Whatsapp: {{ userAlert.whatsapp }} </p>
-                                <p> Sintomas: {{ userAlert.sintoms }} </p>
-                            </v-card-text>
-                        </v-card>
-                    </v-dialog>
+                <v-dialog width="50%" v-model="dialog">
+                    <v-card>
+                        <v-card-title>
+                            {{ userAlert.name }}
+                        </v-card-title>
+                        <v-card-text>
+                            <p> Criação: {{ userAlert.createdAt }} </p>
+                            <p> Whatsapp: {{ userAlert.whatsapp }} </p>
+                            <p> Sintomas: {{ userAlert.sintoms }} </p>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
                 <gmap-polygon :paths="paths"></gmap-polygon>
                 <gmap-marker 
                     v-for="item in coordinates" :key="item.id" 
@@ -53,18 +51,18 @@
                     :icon="colorMarker(item)"
                 />
             </gmap-map>
+            
         </v-container>
     </div>
 </template>
 
 <script>
-import { Help } from "../functions/index.js"
-import cities from "../components/Map/locations/DF.js"
+import { Help } from "../../functions/index.js"
+import cities from "./locations/DF.js"
 let NewHelp = new Help();
-// const mapMarker = require('../assets/red-dot.png')
 
 export default {
-    name: 'map',
+    name: 'pinMap',
         data (){
             return {
                 paths: null,
@@ -101,6 +99,7 @@ export default {
         },
     async mounted(){
         this.list_alerts();
+        console.log(cities)
     },
     methods:{
         overlay(cidade){
@@ -114,7 +113,7 @@ export default {
             }
         },
         async list_alerts(){
-        let alerta = (await NewHelp.get_helps()).data
+            let alerta = (await NewHelp.get_helps()).data
             this.coordinates = alerta
         },
         colorMarker(alerta){
@@ -149,6 +148,6 @@ export default {
 
 <style scoped>
 .name_alert{
-  color: black;
+    color: black;
 }
 </style>

@@ -159,7 +159,7 @@ let NewUser = new Help();
       },
       async list_alerts(){
         let alerta = (await NewUser.get_helps()).data
-        this.alerts = alerta
+        this.alerts = alerta.reverse()
       },
       editItem (item) {
         // this.editedIndex = this.Alerts.indexOf(item)
@@ -192,22 +192,4 @@ let NewUser = new Help();
   background-color: #beb64acc;
   color: rgb(255, 251, 0);
 }
-/* .high {
-  background-color: rgba(255,0,0,.5)
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-} */
 </style>

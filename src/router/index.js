@@ -5,7 +5,7 @@ import LayoutSistema from "../views/LayoutSistema.vue";
 import Maps from "../views/Map.vue";
 import Usuarios from "../views/Usuarios.vue";
 import Alertas from "../views/Alertas.vue";
-
+// import Heat from "../views/HeatMap.vue";
 // import { userAuth } from "../states/userAuth.js";
 
 Vue.use(VueRouter);
@@ -30,6 +30,11 @@ const routes = [
           name: "alertas",
           component: Alertas
         }
+        // {
+        //   path: "/heat",
+        //   name: "heat",
+        //   component: Heat
+        // }
     ]
   },
   {

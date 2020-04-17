@@ -108,8 +108,8 @@ import axios from 'axios';
         return {
           snackbar: false,
           login: {
-              email: 'daniel@email.com',
-              password: '123456'
+              email: '',
+              password: ''
           }
         }
     },
@@ -119,8 +119,8 @@ import axios from 'axios';
             axios
             .post( ip , this.login)
             .then( function(response) {
-                console.log(response.status == 200)
                 if( response.status == 200 ){
+                  localStorage.setItem('app_user', JSON.stringify(response.data))
                   localStorage.setItem('user_name', response.data.user.name)
                   localStorage.setItem('user_id', response.data.user.id)
                   localStorage.setItem('user_email', response.data.user.email)
@@ -131,9 +131,6 @@ import axios from 'axios';
                   this.snackbar = true
                 }
                 
-            })
-            .catch( function (error) {
-              console.log("error: ", error)
             })
             
         },
