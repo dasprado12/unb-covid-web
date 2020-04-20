@@ -1,8 +1,8 @@
 <template>
 <div>
-    <v-btn @click="reload()">
-        reload      
-    </v-btn>
+    <v-btn class="button" @click="reload()">
+        reload heatmap     
+    </v-btn><br>
     <vue-google-heatmap 
         ref="reloadComponent"
         :key="componentKey"
@@ -27,7 +27,6 @@ export default {
                 points: []
             }
         },
-        
     async mounted(){
         this.list_alerts();
     },
@@ -62,5 +61,8 @@ export default {
 <style scoped>
 .name_alert{
     color: black;
+}
+.button{
+    margin-bottom: 10px;
 }
 </style>

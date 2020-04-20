@@ -66,8 +66,9 @@ export default {
       drawer: true,
       nulo: "Maria",
       items: [
-        { icon: 'mdi-home', title: 'Map', route: '/' },
-        { icon: 'mdi-view-dashboard', title: 'Alertas', route: '/alertas' },
+        { icon: 'mdi-home', title: 'Map', route: '/map' },
+        { icon: 'mdi-map', title: 'Heat Map', route: '/heatmap' },
+        { icon: 'mdi-view-dashboard', title: 'Alertas', route: '/' },
         { icon: 'mdi-watch', title: 'Usuários', route: '/usuarios' },
       ],
       name: "Meu nome",

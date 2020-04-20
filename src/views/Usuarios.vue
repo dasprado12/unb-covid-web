@@ -18,6 +18,7 @@
           hide-details
         ></v-text-field>
         
+        
           <!-- AQUI COMEÇA O MODAL -->
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
@@ -54,15 +55,6 @@
                         <v-text-field v-model="editedItem.risk_group" label="Grupo de Risco" disabled></v-text-field>
                       </v-col>
                   </v-row>
-                  <!-- <h2> Todos os alertas </h2>
-                  <div>
-                    {{ listaAlertas(editedItem.user_id) }}
-                  </div> -->
-                  <v-row>
-                    <!-- <v-col cols="12" sm="12" md="12">
-
-                    </v-col> -->
-                  </v-row>
                 </v-container>
               </v-card-text>
 
@@ -70,7 +62,7 @@
                 <contato></contato>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Fechar</v-btn>
-                <!-- <v-btn color="blue darken-1" text @click="save">Atualizar</v-btn> -->
+                
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -80,7 +72,7 @@
 
       <template v-slot:body="{ items }">
         <tbody>
-          <tr :style="{ backgroundColor: getColor(item)}" v-for="item in items" :key="item.name" 
+          <tr :style="{ backgroundColor: getColor(item)}" v-for="(item, i) in items" :key="`${i}-${item.id}`"
             
           >
             <td> {{ item.id }}</td>
@@ -122,11 +114,12 @@ let NewUser = new User();
   export default {
     components: { contato },
     data: () => ({
+      search: '',
       color: '#ffffff',
       dialog: false,
       headers: [
         { text: 'ID', align: 'left', sortable: false, value: 'id' },
-        { text: 'Nome', value: 'name' },
+        { text: 'Nome', value: 'name', sortable: false},
         { text: 'E-mail', value: 'email' },
         { text: 'Whatsapp', value: 'whatsapp' },
         { text: 'Endereço', value: 'address' },
@@ -134,7 +127,6 @@ let NewUser = new User();
       ],
       users: [],
       Lista: [],
-      search: '',
       editedIndex: -1,
       editedItem: {
         name: '',
@@ -172,7 +164,6 @@ let NewUser = new User();
         let birth = user.birth_date.split('/')[2]
         let today = new Date().getFullYear()
         let age = today - parseInt(birth)
-        console.log(user.name, age, user.risk_group)
         if(user.risk_group.length == 0 && age < 60){
           return '#51d61da1'
         }else if(user.risk_group.length != 0 && age < 60 || user.risk_group.length == 0 && age >= 60 ){
@@ -215,22 +206,4 @@ let NewUser = new User();
 .red{
   background-color: #51d61d75;
 }
-/* .high {
-  background-color: rgba(255,0,0,.5)
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-} */
 </style>

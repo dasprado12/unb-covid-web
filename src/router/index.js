@@ -5,7 +5,7 @@ import LayoutSistema from "../views/LayoutSistema.vue";
 import Maps from "../views/Map.vue";
 import Usuarios from "../views/Usuarios.vue";
 import Alertas from "../views/Alertas.vue";
-// import Heat from "../views/HeatMap.vue";
+import Heat from "../views/HeatMap.vue";
 // import { userAuth } from "../states/userAuth.js";
 
 Vue.use(VueRouter);
@@ -16,7 +16,7 @@ const routes = [
     component: LayoutSistema,
     children: [
         {
-          path: "/",
+          path: "/map",
           name: "maps",
           component: Maps,
         },
@@ -26,15 +26,15 @@ const routes = [
           component: Usuarios
         },
         {
-          path: "/alertas",
+          path: "/",
           name: "alertas",
           component: Alertas
+        },
+        {
+          path: "/heatmap",
+          name: "heat",
+          component: Heat
         }
-        // {
-        //   path: "/heat",
-        //   name: "heat",
-        //   component: Heat
-        // }
     ]
   },
   {

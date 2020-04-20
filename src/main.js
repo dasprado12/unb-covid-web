@@ -5,20 +5,26 @@ import vuetify from "./plugins/vuetify";
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSession from 'vue-session'
 import VueLocalStorage from 'vue-localstorage'
-// import VueGoogleHeatmap from 'vue-google-heatmap';
+import MultiFiltersPlugin from './plugins/MultiFilters' 
+import VueGoogleHeatmap from 'vue-google-heatmap';
+
+let googleMapKey = 'AIzaSyDhD5AZQnSDAnu4K1qJiytbzk7v4m9N17k'
 
 Vue.use(VueLocalStorage)
 
 Vue.use( VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDhD5AZQnSDAnu4K1qJiytbzk7v4m9N17k',
+    key: googleMapKey,
     libraries: ["places", "visualization"], 
   },
 })
 
-// Vue.use(VueGoogleHeatmap, {
-//   apiKey: 'AIzaSyDhD5AZQnSDAnu4K1qJiytbzk7v4m9N17k'
-// });
+
+Vue.use(MultiFiltersPlugin); 
+
+Vue.use(VueGoogleHeatmap, {
+  apiKey: googleMapKey
+});
 
 Vue.use(VueSession)
 

@@ -9,15 +9,73 @@
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>Alertas</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-text-field
-          v-model="search"
-          append-icon="mdi-account-search"
-          label="search"
-          single-line
-          hide-details
-        ></v-text-field>
-        
+            <v-spacer></v-spacer>
+            
+
+            <v-row no-gutters class="mainSearch  pa-3">
+              <v-col class="mainSearch" cols=4>
+              <v-text-field
+              class="searchLabel"
+              v-model="search"
+              append-icon="mdi-account-search"
+              label="Nome"
+              single-line
+              hide-details
+              @input="filterSearch"
+            ></v-text-field>
+              </v-col>
+              <v-col class="mainSearch" cols=4>
+              <v-menu
+                ref="menu1"
+                v-model="menu1"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="dateFrom"
+                    label="De"
+                    persistent-hint
+                    single-line
+                    prepend-icon="mdi-calendar"
+                    @blur="date = parseDate(dateFrom)"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="dateFrom" no-title @input="menu1 = false"></v-date-picker>
+              </v-menu>
+              </v-col>
+              <v-col class="mainSearch" cols=4>
+              <v-menu
+                ref="menu2"
+                v-model="menu2"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                disabled
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="dateTo"
+                    label="Até hoje"
+                    persistent-hint
+                    single-line
+                    disabled
+                    prepend-icon="mdi-calendar"
+                    @blur="date = parseDate(dateTo)"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="dateTo" no-title @input="menu2 = false"></v-date-picker>
+              </v-menu>
+              </v-col>
+            </v-row>
+
           <!-- AQUI COMEÇA O MODAL -->
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
@@ -55,16 +113,32 @@
             </v-card>
           </v-dialog>
           <!-- AQUI ACABA O MODAL -->
-          
         </v-toolbar>
-      </template>
 
+<v-toolbar flat>
+  <v-layout row wrap ma-1>
+    <v-flex xs12>
+            <v-select
+              v-model="sintoms"
+              :items="items"
+              single-line
+              attach
+              chips
+              color="red"
+              label="Sintomas"
+              multiple
+            ></v-select>
+    </v-flex>
+  </v-layout>
+</v-toolbar>
+
+      </template>
       <template v-slot:body="{ items }">
         <tbody>
-          <tr :style="{ backgroundColor: getColor(item)}" v-for="item in items" :key="item.name" 
+          <tr :style="{ backgroundColor: getColor(item)}" v-for="item in items"  :key="`${i}-${item.id}`" 
             
           >
-            <td> {{ item.id }}</td>
+            <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.sintoms }}</td>
             <td>{{ item.whatsapp }}</td>
@@ -101,18 +175,14 @@ let NewUser = new Help();
 
   export default {
     data: () => ({
+      sintoms: '',
+      dateFrom: '',
+      dateTo: '',
+      search: '',
       dialog: false,
-      headers: [
-        { text: 'ID', align: 'left', sortable: false, value: 'id' },
-        { text: 'Nome', value: 'name' },
-        { text: 'Sintomas', value: 'email' },
-        { text: 'Whatsapp', value: 'whatsapp' },
-        { text: 'Hora', value: 'address' },
-        { text: 'Actions', value: 'action', sortable: false },
-      ],
+      items: ['Febre','Tosse seca','Falta de ar','Cansaço'],
       alerts: [],
       Lista: [],
-      search: '',
       editedIndex: -1,
       editedItem: {
         name: '',
@@ -127,12 +197,51 @@ let NewUser = new Help();
         fat: 0,
         carbs: 0,
         protein: 0,
-      },
+      }
     }),
     computed: {
       formTitle () {
         return this.editedIndex === -1 ? 'User' : 'Atualizar Alerta'
       },
+      headers() {
+        return [
+        { text: 'ID', align: 'left', value: 'id' },
+        { text: 'Nome', value: 'name' },
+        { 
+          text: 'Sintomas', 
+          value: 'sintoms',
+          filter: value => {
+            if (!this.sintoms) return true;
+            if( this.sintoms.every( f => value.includes(f) ) ){
+              return value
+            }
+          }
+        },
+        { text: 'Whatsapp', value: 'whatsapp' },
+        { 
+          text: 'Hora', 
+          value: 'createdAt',
+          filter: value => {
+            if (!this.dateFrom && !this.dateTo) return true;
+            console.log(value)
+            let currentDate = new Date(value)
+            let dateFrom = new Date(this.dateFrom)
+            let dateTo = null
+            if(!this.dateTo){
+              dateTo = new Date(Date.now())
+            }else{
+              dateTo = new Date(value)
+            }
+            if(dateFrom < currentDate && dateTo > currentDate){
+              return value
+            }else{
+              console.log('EU SOU MENOOOOOOOOR')
+            }
+          }
+        },
+        { text: 'Actions', value: 'action', sortable: false },
+      ]
+      }
     },
 
     watch: {
@@ -148,8 +257,9 @@ let NewUser = new Help();
     methods: {
       getColor(alert){
         let amountAlerts = alert.sintoms.split(',').length
-        
-        if(amountAlerts == 1){
+        if(alert.sintoms == "Falta de ar"){
+          return '#d61d1da1'
+        }else if(amountAlerts == 1){
           return '#51d61da1'
         }else if(amountAlerts == 2){
           return '#d6d31da1'
@@ -159,10 +269,13 @@ let NewUser = new Help();
       },
       async list_alerts(){
         let alerta = (await NewUser.get_helps()).data
+        // let sintomas = []
+        for(let i = 0; i < alerta.length; i++){
+          alerta[i]['sintoms'] = alerta[i]['sintoms'].split(',').join(', ')
+        }
         this.alerts = alerta.reverse()
       },
       editItem (item) {
-        // this.editedIndex = this.Alerts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
@@ -173,16 +286,6 @@ let NewUser = new Help();
           this.editedIndex = -1
         }, 300)
       },
-
-      save () {
-        if (this.editedIndex > -1) {
-            // listAlerts.updateAlert()
-          // console.log(this.Alerts[this.editedIndex].uid)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
-        this.close()
-      },
     },
   }
 </script>
@@ -191,5 +294,8 @@ let NewUser = new Help();
 .red{
   background-color: #beb64acc;
   color: rgb(255, 251, 0);
+}
+.mainSearch{
+  padding-top: 15px;
 }
 </style>

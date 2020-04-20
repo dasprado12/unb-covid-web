@@ -1,7 +1,7 @@
 <template>
     <div class="">    
         <v-container>
-    <v-menu offset-y>
+    <!-- <v-menu offset-y>
       <template v-slot:activator="{ on }">
           
         <v-btn
@@ -22,7 +22,7 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
     
             <gmap-map 
             ref="mymap" 
@@ -119,7 +119,9 @@ export default {
         },
         colorMarker(alerta){
             let amountAlerts = alerta.sintoms.split(',').length
-            if(amountAlerts < 2){
+            if(alerta.sintoms == 'Falta de ar'){
+                return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            }else if(amountAlerts == 1){
                 return "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
             }else if(amountAlerts == 2){
                 return "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
