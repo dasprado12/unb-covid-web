@@ -1,11 +1,12 @@
-import { API } from "./API"
-import axios from 'axios'
+import axios from 'axios';
+import endpoint from "../config/endpoint";
+
 
 export class Session {
     constructor(){
     }
 
-    get_session = (data) =>  axios.post(API+'/session', data)
+    get_session = (data) =>  axios.post(endpoint.get('session'), data)
 
     return_user(){
         let name = localStorage.getItem('user_name')
