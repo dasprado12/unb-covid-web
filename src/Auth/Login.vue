@@ -67,8 +67,10 @@ export default {
   methods: {
     login_form() {
       const address = endpoint.get("sessions");
-      axios.post(address, this.login).then(function(response) {
-        if (response.status == 200 && response.data.user.profile != "admin") {
+      axios.post(address, this.login).then(response => {
+        debugger;
+        if (response.status == 200 && response.data.user.profile == "admin") {
+          debugger;
           localStorage.setItem("app_user", JSON.stringify(response.data));
           localStorage.setItem("user_name", response.data.user.name);
           localStorage.setItem("user_id", response.data.user.id);
