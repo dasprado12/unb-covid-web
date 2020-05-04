@@ -10,8 +10,6 @@
         <v-toolbar flat color="white">
           <v-toolbar-title>Alertas</v-toolbar-title>
             <v-spacer></v-spacer>
-            
-
             <v-row no-gutters class="mainSearch  pa-3">
               <v-col class="mainSearch" cols=4>
               <v-text-field
@@ -80,7 +78,7 @@
           <v-dialog v-model="dialog" max-width="500px">
             <v-card>
               <v-card-title class="green lighten-2">
-                <span class="headline">{{ formTitle }}</span>
+                <span class="headline">User</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
@@ -115,22 +113,22 @@
           <!-- AQUI ACABA O MODAL -->
         </v-toolbar>
 
-<v-toolbar flat>
-  <v-layout row wrap ma-1>
-    <v-flex xs12>
-            <v-select
-              v-model="sintoms"
-              :items="items"
-              single-line
-              attach
-              chips
-              color="red"
-              label="Sintomas"
-              multiple
-            ></v-select>
-    </v-flex>
-  </v-layout>
-</v-toolbar>
+        <v-toolbar flat>
+          <v-layout row wrap ma-1>
+            <v-flex xs12>
+                    <v-select
+                      v-model="sintoms"
+                      :items="items"
+                      single-line
+                      attach
+                      chips
+                      color="red"
+                      label="Sintomas"
+                      multiple
+                    ></v-select>
+            </v-flex>
+          </v-layout>
+        </v-toolbar>
 
       </template>
       <template v-slot:body="{ items }">
@@ -152,7 +150,6 @@
         </v-icon> </td>
           </tr>
         </tbody>
-
       </template>
       
       <template v-slot:item.action="{ item }">
@@ -200,60 +197,69 @@ let NewUser = new Help();
       }
     }),
     computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'User' : 'Atualizar Alerta'
-      },
       headers() {
         return [
-        { text: 'ID', align: 'left', value: 'id' },
-        { text: 'Nome', value: 'name' },
-        { 
-          text: 'Sintomas', 
-          value: 'sintoms',
-          filter: value => {
-            if (!this.sintoms) return true;
-            if( this.sintoms.every( f => value.includes(f) ) ){
-              return value
+          { 
+            text: 'ID', 
+            align: 'left', 
+            value: 'id' 
+          },
+          { 
+            text: 'Nome', 
+            value: 'name' 
+          },
+          { 
+            text: 'Sintomas', 
+            value: 'sintoms',
+            filter: value => {
+              if (!this.sintoms) return true;
+              if( this.sintoms.every( f => value.includes(f) ) ){
+                return value
+              }
             }
-          }
-        },
-        { text: 'Whatsapp', value: 'whatsapp' },
-        { 
-          text: 'Hora', 
-          value: 'createdAt',
-          filter: value => {
-            if (!this.dateFrom && !this.dateTo) return true;
-            console.log(value)
-            let currentDate = new Date(value)
-            let dateFrom = new Date(this.dateFrom)
-            let dateTo = null
-            if(!this.dateTo){
-              dateTo = new Date(Date.now())
-            }else{
-              dateTo = new Date(value)
+          },
+          { 
+            text: 'Whatsapp', 
+            value: 'whatsapp' 
+          },
+          { 
+            text: 'Hora', 
+            value: 'createdAt',
+            filter: value => {
+              if (!this.dateFrom && !this.dateTo) return true;
+              let currentDate = new Date(value)
+              let dateFrom = new Date(this.dateFrom)
+              let dateTo = null
+              if(!this.dateTo){
+                dateTo = new Date(Date.now())
+              }else{
+                dateTo = new Date(value)
+              }
+              if(dateFrom < currentDate && dateTo > currentDate){
+                return value
+              }else{
+                console.log('EU SOU MENOOOOOOOOR')
+              }
             }
-            if(dateFrom < currentDate && dateTo > currentDate){
-              return value
-            }else{
-              console.log('EU SOU MENOOOOOOOOR')
-            }
-          }
-        },
-        { text: 'Actions', value: 'action', sortable: false },
-      ]
+          },
+          { 
+            text: 'Actions', 
+            value: 'action', 
+            sortable: false 
+          },
+        ]
       }
     },
 
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-    },
+    // watch: {
+    //   dialog (val) {
+    //     val || this.close()
+    //   },
+    // },
 
     async mounted() {
       this.list_alerts()
     },
-
     methods: {
       getColor(alert){
         let amountAlerts = alert.sintoms.split(',').length

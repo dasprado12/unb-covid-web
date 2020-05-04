@@ -174,7 +174,6 @@ export default {
         },
         updateUser(){
             novoUser.updateUser(this.editedItem)
-            console.log(this.editedItem.email)
         }
     }
 }

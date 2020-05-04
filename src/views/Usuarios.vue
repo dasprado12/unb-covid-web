@@ -59,7 +59,6 @@
               </v-card-text>
 
               <v-card-actions>
-                <contato></contato>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Fechar</v-btn>
                 
@@ -106,13 +105,11 @@
 </template>
 
 <script>
-import contato from '../components/contatoEmergencia.vue';
 import { User } from "../functions/index.js"
 
 let NewUser = new User();
 
   export default {
-    components: { contato },
     data: () => ({
       search: '',
       color: '#ffffff',
@@ -191,8 +188,7 @@ let NewUser = new User();
 
       save () {
         if (this.editedIndex > -1) {
-            // listAlerts.updateAlert()
-          // console.log(this.Alerts[this.editedIndex].uid)
+          // oi
         } else {
           this.desserts.push(this.editedItem)
         }

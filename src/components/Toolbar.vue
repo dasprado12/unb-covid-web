@@ -13,11 +13,17 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app class="indigo lighten-4" >
+<v-row>
+  
+
+    <v-navigation-drawer 
+      v-model="drawer" app class="indigo lighten-4" 
+
+    >
       <v-list-item>
-    <v-avatar color="indigo">
-      <span class="white--text headline">:) </span>
-    </v-avatar>
+        <v-avatar color="indigo">
+          <span class="white--text headline">:) </span>
+        </v-avatar>
         <v-list-item-content>
           <v-list-item-title class="title title-space">
             {{ user.name }}
@@ -34,6 +40,28 @@
         dense
         nav
       >
+      <v-list-group
+        prepend-icon="mdi-map"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>Visualization</v-list-item-title>
+        </template>
+        <v-list-item
+          v-for="item in map_items"
+          :key="item.title"
+          :to="item.route"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+
         <v-list-item
           v-for="item in items"
           :key="item.title"
@@ -49,6 +77,8 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
+        </v-row>
   </nav>
 </template>
 
@@ -66,10 +96,12 @@ export default {
       drawer: true,
       nulo: "Maria",
       items: [
-        { icon: 'mdi-home', title: 'Map', route: '/map' },
-        { icon: 'mdi-map', title: 'Heat Map', route: '/heatmap' },
-        { icon: 'mdi-view-dashboard', title: 'Alertas', route: '/' },
-        { icon: 'mdi-watch', title: 'Usuários', route: '/usuarios' },
+        { icon: 'mdi-alert', title: 'Alertas', route: '/' },
+        { icon: 'mdi-human', title: 'Usuários', route: '/usuarios' },
+      ],
+      map_items: [
+        { icon: 'mdi-map-marker', title: 'Map', route: '/map' },
+        { icon: 'mdi-map-marker-circle', title: 'Heat Map', route: '/heatmap' },
       ],
       name: "Meu nome",
       role: "Meu papel",
@@ -81,7 +113,6 @@ export default {
   methods: {
     get_user(){
       this.user = loged_user.return_user()
-      console.log(this.user.email)
     },
     signout(){
       localStorage.clear()

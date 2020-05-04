@@ -19,14 +19,13 @@ Vue.use( VueGoogleMaps, {
   },
 })
 
-
-Vue.use(MultiFiltersPlugin); 
-
 Vue.use(VueGoogleHeatmap, {
   apiKey: googleMapKey
 });
 
 Vue.use(VueSession)
+
+Vue.use(MultiFiltersPlugin); 
 
 Vue.config.productionTip = false;
 

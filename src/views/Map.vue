@@ -1,49 +1,38 @@
 <template>
     <div class="">    
         <v-container>
-    <!-- <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-          
-        <v-btn
-          color="primary"
-          dark
-          outlined
-          v-on="on"
-        >
-          {{ current_city }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in cities"
-          :key="index"
-          @click="overlay(item)"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu> -->
+
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn  v-on="on">
+                        {{ current_city }}
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item v-for="(item, index) in cities" :key="index" @click="overlay(item)">
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu><br><br>
     
             <gmap-map 
-            ref="mymap" 
-            :center="mapConfig.startLocation" 
-            :zoom="mapConfig.zoom" 
-            style="width: 100%; height: 900px;"
-            
+                ref="mymap" 
+                :center="mapConfig.startLocation" 
+                :zoom="mapConfig.zoom" 
+                style="width: 100%; height: 1000px;"
             >  
-
-                    <v-dialog width="50%" v-model="dialog">
-                        <v-card>
-                            <v-card-title>
-                                {{ userAlert.name }}
-                            </v-card-title>
-                            <v-card-text>
-                                <p> Criação: {{ userAlert.createdAt }} </p>
-                                <p> Whatsapp: {{ userAlert.whatsapp }} </p>
-                                <p> Sintomas: {{ userAlert.sintoms }} </p>
-                            </v-card-text>
-                        </v-card>
-                    </v-dialog>
+                <v-dialog width="50%" v-model="dialog">
+                    <v-card>
+                        <v-card-title>
+                            {{ userAlert.name }}
+                        </v-card-title>
+                        <v-card-text>
+                            <p> Criação: {{ userAlert.createdAt }} </p>
+                            <p> Whatsapp: {{ userAlert.whatsapp }} </p>
+                            <p> Sintomas: {{ userAlert.sintoms }} </p>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
                 <gmap-polygon :paths="paths"></gmap-polygon>
                 <gmap-marker 
                     v-for="item in coordinates" :key="item.id" 
@@ -61,12 +50,15 @@
 import { Help } from "../functions/index.js"
 import cities from "../components/Map/locations/DF.js"
 let NewHelp = new Help();
-// const mapMarker = require('../assets/red-dot.png')
 
 export default {
     name: 'map',
         data (){
             return {
+                items: [
+                    { title: 'Home', icon: 'mdi-dashboard' },
+                    { title: 'About', icon: 'mdi-accent' },
+                ],
                 paths: null,
                 cities: [
                     { title: 'Cidades', key: '' },

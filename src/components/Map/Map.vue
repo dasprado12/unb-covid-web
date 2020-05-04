@@ -99,7 +99,6 @@ export default {
         },
     async mounted(){
         this.list_alerts();
-        console.log(cities)
     },
     methods:{
         overlay(cidade){
