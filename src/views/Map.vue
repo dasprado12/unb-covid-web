@@ -3,7 +3,7 @@
         <v-container>
             <v-card-text>
                 <v-row>
-                    <v-col md="6" sm="6">
+                    <v-col md="5" sm="5">
                     <v-menu
                         ref="inicioMenu"
                         v-model="inicio.menu"
@@ -24,7 +24,7 @@
                         <v-date-picker v-model="inicio.date" no-title @input="inicio.menu = false"></v-date-picker>
                     </v-menu>
                     </v-col>
-                    <v-col md="6" sm="6">
+                    <v-col md="5" sm="5">
                     <v-menu
                         ref="inicioMenu"
                         v-model="final.menu"
@@ -44,6 +44,10 @@
                         </template>
                         <v-date-picker v-model="final.date" no-title @input="final.menu = false"></v-date-picker>
                     </v-menu>
+                    </v-col>
+                    <v-col md="2" sm="2" class="padding-button"
+                    @click="refreshDate()">
+                        <v-btn block>Zerar</v-btn>
                     </v-col>
                 </v-row>
             </v-card-text>
@@ -128,7 +132,7 @@ export default {
             let inicio = null
             let fim = null
             if( this.inicio.date.length == 0 ){
-                inicio = new Date().getFullYear() - 1
+                inicio = new Date().getFullYear() - 5
             }else{
                 inicio = new Date(this.inicio.date)
             }
@@ -139,11 +143,15 @@ export default {
             }
             let result = search.filter( d => { let time = new Date(d.createdAt)
                                     return ( inicio <= time && time < fim )} )
-            console.log(result)
             return result
         }
     },
     methods:{
+        refreshDate(){
+            this.inicio.date = ''
+            this.final.date = ''
+            this.filteredPoints()
+        },
         async list_alerts(){
             let alerta = (await NewHelp.get_helps()).data
             alerta.sort( function(a,b) {
@@ -185,6 +193,10 @@ export default {
 
 <style scoped>
 .name_alert{
-  color: black;
+    color: black;
+}
+
+.padding-button{
+    padding-top: 24px;
 }
 </style>

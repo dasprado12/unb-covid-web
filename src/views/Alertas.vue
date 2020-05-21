@@ -5,6 +5,8 @@
       :items="alerts"
       class="elevation-1"
       :search="search"
+      :sort-by="['id']"
+      :sort-desc="['false']"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
@@ -202,7 +204,8 @@ let NewUser = new Help();
           { 
             text: 'ID', 
             align: 'left', 
-            value: 'id' 
+            value: 'id',
+            sortable: 'id'
           },
           { 
             text: 'Nome', 

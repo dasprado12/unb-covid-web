@@ -44,10 +44,31 @@
         prepend-icon="mdi-map"
       >
         <template v-slot:activator>
-          <v-list-item-title>Visualization</v-list-item-title>
+          <v-list-item-title>Visualização</v-list-item-title>
         </template>
         <v-list-item
           v-for="item in map_items"
+          :key="item.title"
+          :to="item.route"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+
+      <v-list-group
+        prepend-icon="mdi-hospital"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>SES-DF</v-list-item-title>
+        </template>
+        <v-list-item
+          v-for="item in sesdf_items"
           :key="item.title"
           :to="item.route"
         >
@@ -76,6 +97,8 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+
     </v-navigation-drawer>
 
         </v-row>
@@ -102,6 +125,9 @@ export default {
       map_items: [
         { icon: 'mdi-map-marker', title: 'Map', route: '/map' },
         { icon: 'mdi-map-marker-circle', title: 'Heat Map', route: '/heatmap' },
+      ],
+      sesdf_items: [
+        { icon: 'mdi-map-marker', title: 'DFMap', route: '/DFmap' }
       ],
       name: "Meu nome",
       role: "Meu papel",
