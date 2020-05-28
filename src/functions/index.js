@@ -1,24 +1,38 @@
-import axios from 'axios'
+import axios from "axios";
+import endpoint from "../config/endpoint";
 
 const API_URLS = {
-    'USERS': 'http://35.215.210.191:3333' + '/users',
-    'HELPS': 'http://35.215.210.191:3333' + '/help'
-}
-let token = localStorage.getItem('user_token')
+  USERS: endpoint.get("users"),
+  HELPS: endpoint.get("help"),
+  PROFILES: endpoint.get("users/profiles")
+};
+let token = localStorage.getItem("user_token");
 
 export class User {
-    constructor() {
-    }
+  constructor() { }
 
-    get_users = () => axios.get(API_URLS.USERS, { headers: { "Authorization": `Bearer ${token}`  } })
+  get_users = () =>
+    axios.get(API_URLS.USERS, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
-    
+  get_profiles = () =>
+    axios.get(API_URLS.PROFILES, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+  put_profiles = users_profiles => {
+    axios.put(API_URLS.PROFILES, users_profiles, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  };
 }
 
 export class Help {
-    constructor() {
+  constructor() { }
 
-    }
-
-    get_helps = () => axios.get(API_URLS.HELPS, { headers: { "Authorization": `Bearer ${token}`  } })
+  get_helps = () =>
+    axios.get(API_URLS.HELPS, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 }
