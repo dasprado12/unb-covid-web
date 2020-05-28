@@ -1,52 +1,76 @@
 <template>
     <div class="">    
         <v-container>
-    <!-- <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-          
-        <v-btn
-          color="primary"
-          dark
-          outlined
-          v-on="on"
-        >
-          {{ current_city }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in cities"
-          :key="index"
-          @click="overlay(item)"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu> -->
-    
+            <v-card-text>
+                <v-row>
+                    <v-col md="5" sm="5">
+                    <v-menu
+                        ref="inicioMenu"
+                        v-model="inicio.menu"
+                        :close-on-content-click="false"
+                        max-width="290px"
+                        min-width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="inicio.date"
+                                label="Inicio"
+                                persistent-hint
+                                prepend-icon="mdi-calendar"
+                                @blur="inicio.date = parseDate(dateFormatted)"
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="inicio.date" no-title @input="inicio.menu = false"></v-date-picker>
+                    </v-menu>
+                    </v-col>
+                    <v-col md="5" sm="5">
+                    <v-menu
+                        ref="inicioMenu"
+                        v-model="final.menu"
+                        :close-on-content-click="false"
+                        max-width="290px"
+                        min-width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                v-model="final.date"
+                                label="Final"
+                                persistent-hint
+                                prepend-icon="mdi-calendar"
+                                @blur="final.date = parseDate(dateFormatted)"
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="final.date" no-title @input="final.menu = false"></v-date-picker>
+                    </v-menu>
+                    </v-col>
+                    <v-col md="2" sm="2" class="padding-button"
+                    @click="refreshDate()">
+                        <v-btn block>Zerar</v-btn>
+                    </v-col>
+                </v-row>
+            </v-card-text>
             <gmap-map 
-            ref="mymap" 
-            :center="mapConfig.startLocation" 
-            :zoom="mapConfig.zoom" 
-            style="width: 100%; height: 900px;"
-            
+                ref="mymap" 
+                :center="mapConfig.startLocation" 
+                :zoom="mapConfig.zoom" 
+                style="width: 100%; height: 1000px;"
             >  
-
-                    <v-dialog width="50%" v-model="dialog">
-                        <v-card>
-                            <v-card-title>
-                                {{ userAlert.name }}
-                            </v-card-title>
-                            <v-card-text>
-                                <p> Criação: {{ userAlert.createdAt }} </p>
-                                <p> Whatsapp: {{ userAlert.whatsapp }} </p>
-                                <p> Sintomas: {{ userAlert.sintoms }} </p>
-                            </v-card-text>
-                        </v-card>
-                    </v-dialog>
-                <gmap-polygon :paths="paths"></gmap-polygon>
+                <v-dialog width="50%" v-model="dialog">
+                    <v-card>
+                        <v-card-title>
+                            {{ userAlert.name }}
+                        </v-card-title>
+                        <v-card-text>
+                            <p> Criação: {{ userAlert.createdAt }} </p>
+                            <p> Whatsapp: {{ userAlert.whatsapp }} </p>
+                            <p> Sintomas: {{ userAlert.sintoms }} </p>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
                 <gmap-marker 
-                    v-for="item in coordinates" :key="item.id" 
+                    v-for="item in filteredPoints" :key="item.id" 
                     :position="getPosition(item)" 
                     @click="toggleInfo(item)"
                     :clickable="true"
@@ -59,21 +83,20 @@
 
 <script>
 import { Help } from "../functions/index.js"
-import cities from "../components/Map/locations/DF.js"
 let NewHelp = new Help();
-// const mapMarker = require('../assets/red-dot.png')
 
 export default {
-    name: 'map',
+        name: 'my-map',
         data (){
             return {
-                paths: null,
-                cities: [
-                    { title: 'Cidades', key: '' },
-                    { title: 'Aguas Claras', key: 'aguas_claras' },
-                    { title: 'Plano Piloto', key: 'plano_piloto' }
-                ],
-                current_city: 'Cidades',
+                inicio: {
+                    menu: '',
+                    date: '',
+                },
+                final: {
+                    menu: '',
+                    date: '',
+                },
                 dialog: false,
                 mapConfig: {
                     colorMarkers: {
@@ -99,22 +122,41 @@ export default {
                 }
             }
         },
+        
     async mounted(){
         this.list_alerts();
     },
-    methods:{
-        overlay(cidade){
-            let key = cidade['key']
-            if(key == ''){
-                this.current_city = cidade.title
-                this.paths = 'oi'
+    computed: {
+        filteredPoints(){
+            let search = this.coordinates
+            let inicio = null
+            let fim = null
+            if( this.inicio.date.length == 0 ){
+                inicio = new Date().getFullYear() - 5
             }else{
-                this.current_city = cidade.title
-                this.paths = cities[key]
+                inicio = new Date(this.inicio.date)
             }
+            if( this.final.date.length == 0 ){
+                fim = new Date()
+            }else{
+                fim = new Date(this.final.date)
+            }
+            let result = search.filter( d => { let time = new Date(d.createdAt)
+                                    return ( inicio <= time && time < fim )} )
+            return result
+        }
+    },
+    methods:{
+        refreshDate(){
+            this.inicio.date = ''
+            this.final.date = ''
+            this.filteredPoints()
         },
         async list_alerts(){
-        let alerta = (await NewHelp.get_helps()).data
+            let alerta = (await NewHelp.get_helps()).data
+            alerta.sort( function(a,b) {
+                return new Date(a.createdAt) - new Date(b.createdAt)
+            } )
             this.coordinates = alerta
         },
         colorMarker(alerta){
@@ -151,6 +193,10 @@ export default {
 
 <style scoped>
 .name_alert{
-  color: black;
+    color: black;
+}
+
+.padding-button{
+    padding-top: 24px;
 }
 </style>

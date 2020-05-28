@@ -9,12 +9,14 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "apexcharts": "^3.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.1",
     "core-js": "^3.4.4",
     "dwy-vue-session": "^1.0.9",
     "lottie-vuejs": "^0.3.7",
     "vue": "^2.6.11",
+    "vue-apexcharts": "^1.5.3",
     "vue-google-heatmap": "^1.0.1",
     "vue-localstorage": "^0.6.2",
     "vue-lottie": "^0.2.1",

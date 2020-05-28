@@ -34,7 +34,6 @@ let novoAlert = new Alert();
     },
     async mounted(){
       this.alerts = (await novoAlert.getAlert(this.user_id)).data
-      console.log(this.alerts[0].alert_id)
     },
     methods: {
       getAlerts(){

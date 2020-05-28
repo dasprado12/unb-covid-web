@@ -6,6 +6,7 @@ import Maps from "../views/Map.vue";
 import Usuarios from "../views/Usuarios.vue";
 import Alertas from "../views/Alertas.vue";
 import Heat from "../views/HeatMap.vue";
+import DFmap from "../views/DFmap.vue";
 // import { userAuth } from "../states/userAuth.js";
 
 Vue.use(VueRouter);
@@ -34,6 +35,11 @@ const routes = [
           path: "/heatmap",
           name: "heat",
           component: Heat
+        },
+        {
+          path: '/DFmap',
+          name: 'DFmap',
+          component: DFmap
         }
     ]
   },

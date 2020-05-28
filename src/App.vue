@@ -8,6 +8,15 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  data(){
+    return {
+
+    }
+  },
+  destroyed(){
+    localStorage.removeItem('user_token')
+    alert('EU FUI DESTRUIDO')
+  }
 };
 </script>
