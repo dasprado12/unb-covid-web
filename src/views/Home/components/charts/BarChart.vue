@@ -3,7 +3,7 @@
         <vue-apex-charts 
             width="100%"
             type="bar" 
-            height="800vh"
+            height="auto"
             :options="options" 
             :series="series"
             :key="numId"

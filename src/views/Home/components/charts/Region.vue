@@ -34,10 +34,12 @@
 <script>
 import data from "../../../../example/index.js"
 import dates from "../../../../example/dates.js"
-import regions from "../../../../example/regions.js"
 import barChart from "./BarChart.vue";
 
 export default {
+    props: [ 
+        'regions'
+    ],
     components: { 
         barChart
     },
@@ -47,7 +49,6 @@ export default {
             selected: ['Infectados', 'Obitos'],
             dates: dates.dates,
             dados: data.DF,
-            regions: regions.regions,
             dados_filtrados: {
                 infectados: [],
                 dia: [],
