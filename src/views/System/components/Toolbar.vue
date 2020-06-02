@@ -61,7 +61,7 @@
         </v-list-item>
       </v-list-group>
 
-      <v-list-group
+      <!-- <v-list-group
         prepend-icon="mdi-hospital"
       >
         <template v-slot:activator>
@@ -80,7 +80,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </v-list-group>
+      </v-list-group> -->
 
 
         <v-list-item
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { Session } from "../functions/Sessions.js"
+import { Session } from "../../../functions/Sessions.js"
 
 let loged_user = new Session;
 
@@ -119,16 +119,16 @@ export default {
       drawer: true,
       nulo: "Maria",
       items: [
-        { icon: 'mdi-alert', title: 'Alertas', route: '/' },
+        { icon: 'mdi-alert', title: 'Alertas', route: '/alertas' },
         { icon: 'mdi-human', title: 'Usuários', route: '/usuarios' },
       ],
       map_items: [
         { icon: 'mdi-map-marker', title: 'Map', route: '/map' },
         { icon: 'mdi-map-marker-circle', title: 'Heat Map', route: '/heatmap' },
       ],
-      sesdf_items: [
-        { icon: 'mdi-map-marker', title: 'DFMap', route: '/DFmap' }
-      ],
+      // sesdf_items: [
+      //   { icon: 'mdi-map-marker', title: 'DFMap', route: '/DFmap' }
+      // ],
       name: "Meu nome",
       role: "Meu papel",
     }

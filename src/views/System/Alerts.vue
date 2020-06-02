@@ -168,7 +168,7 @@
 </template>
 
 <script>
-import { Help } from "../functions/index.js"
+import { Help } from "../../functions/index.js"
 
 let NewUser = new Help();
 

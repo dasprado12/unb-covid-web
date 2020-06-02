@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { User } from "../functions/index.js";
+import { User } from "../../functions/index.js";
 
 let NewUser = new User();
 

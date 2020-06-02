@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import locations from "../sesdf/index.js"
-import listMap from "../components/Sesdf/List.vue"
-import Regions from "../components/Sesdf/Regions.vue"
+import locations from "../../sesdf/index.js"
+import listMap from "./components/Sesdf/List.vue"
+import Regions from "./components/Sesdf/Regions.vue"
 
 export default {
     components: { listMap, Regions },
