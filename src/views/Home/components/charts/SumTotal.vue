@@ -18,7 +18,7 @@
                 </v-card-text>
                     <v-container fluid>
                             <v-row justify="space_around">
-                                <v-checkbox class="mx-2" v-model="selected" label="Infectados" value="Infectados"></v-checkbox>
+                                <v-checkbox v-model="selected" label="Infectados" value="Infectados"></v-checkbox>
                                 <v-checkbox v-model="selected" label="Obitos" value="Obitos"></v-checkbox>
                             </v-row>
                     </v-container>
