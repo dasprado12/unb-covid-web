@@ -8,18 +8,18 @@
                     <v-card-title>
                         DF
                     </v-card-title>
-                <v-card-text>
-                    <bar-chart
-                        v-bind:infected="infectados"
-                        v-bind:time="dates"
-                        v-bind:death="obitos"
-                        v-bind:region="regions"
-                        :key="numId"
-                    />
-                </v-card-text>
+                    <v-card-text>
+                        <bar-chart
+                            v-bind:infected="infectados"
+                            v-bind:time="dates"
+                            v-bind:death="obitos"
+                            v-bind:region="regions"
+                            :key="numId"
+                        />
+                    </v-card-text>
                     <v-container fluid>
                             <v-row justify="space_around">
-                                <v-checkbox class="mx-2" v-model="selected" label="Infectados" value="Infectados"></v-checkbox>
+                                <v-checkbox v-model="selected" label="Infectados" value="Infectados"></v-checkbox>
                                 <v-checkbox v-model="selected" label="Obitos" value="Obitos"></v-checkbox>
                             </v-row>
                     </v-container>
@@ -70,7 +70,6 @@ export default {
         filter_data(){
             let tamanho = this.dates.length - 1;
             let day = this.dates[tamanho];
-            
 
             //para cada regiao
             for(let i = 0; i < this.regions.length; i++ ){

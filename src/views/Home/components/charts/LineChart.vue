@@ -35,22 +35,22 @@ export default {
                 name: 'chart'
             },
             options: {
-                annotations: {
-                    yaxis: [
-                        {
-                            y: 600,
-                            borderColor: '#00E396',
-                            label: {
-                                borderColor: '#00E396',
-                                style: {
-                                    color: '#111111',
-                                    background: '#dadada'
-                                },
-                                text: 'Capacidade do sistema de saúde'
-                            }
-                        }
-                    ]
-                },
+                // annotations: {
+                //     yaxis: [
+                //         {
+                //             y: 600,
+                //             borderColor: '#00E396',
+                //             label: {
+                //                 borderColor: '#00E396',
+                //                 style: {
+                //                     color: '#111111',
+                //                     background: '#dadada'
+                //                 },
+                //                 text: 'Capacidade do sistema de saúde'
+                //             }
+                //         }
+                //     ]
+                // },
                 stroke: {
                     curve: 'smooth',
                 },

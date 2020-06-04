@@ -1,42 +1,59 @@
 <template>
-
     <div class="estados">
-    <nav>
-    </nav>
-        <v-flex fluid>
-            
-            <v-col cols="12" sm="2" md="2">
-                    <v-toolbar color="teal" dark>
-                        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                        <v-toolbar-title>Estados</v-toolbar-title>
-                    </v-toolbar>
-                    <v-list>
-                        <v-list-group v-for="item in items" :key="item.title">
-                            <template v-slot:activator>
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="item.title"></v-list-item-title>
-                                </v-list-item-content>
-                            </template>
-                            <v-list-item v-for="i in item.items" :key="i">
-                                <v-container fluid>
-                                        <v-checkbox :key="i.title" v-model="selected" :label="i.title" :value="i.title" @click="refresh()"></v-checkbox>
-                                </v-container>
-                            </v-list-item>
-                        </v-list-group>
-                    </v-list>
-            </v-col>
-            
-            <v-col cols="12" sm="2" md="2">
-                {{ selected }}
-            </v-col>
-        <div class="estado-bar">
-       
-        <region
-        v-bind:regions="selected"
-        v-bind:key="keyNum"
-        ></region>
-    </div>
-        </v-flex>
+        <v-container>
+            <v-row>
+                <v-col cols="12" sm="2" md="2">
+                    <v-card >
+                        <v-toolbar color="teal" dark>
+                            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+                            <v-toolbar-title>Estados</v-toolbar-title>
+                        </v-toolbar>
+                        <v-list>
+                            <v-btn text @click="refresh()">Refresh</v-btn>
+                            <v-list-group v-for="item in items" :key="item.title">
+                                <template v-slot:activator>
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="item.title"></v-list-item-title>
+                                    </v-list-item-content>
+                                </template>
+                                <v-list-item v-for="i in item.items" :key="i">
+                                    <v-container fluid>
+                                            <v-checkbox :key="i.title" v-model="selected" :label="i.title" :value="i.title" ></v-checkbox>
+                                    </v-container>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" sm="10" md="10">
+                    <v-card>
+                        <v-tabs v-model="tab" centered>
+                            <v-tab key="Brasil">Line</v-tab>
+                                <v-divider class="mx-4" inset vertical/>
+                            <v-tab key="Estados">Bar</v-tab>
+                        </v-tabs>
+                        <v-tabs-items v-model="tab">
+                            <v-tab-item key="Brasil">
+            <v-row >
+                <v-col cols="12" sm="6" md="6" v-for="city in selected" :key="city">
+                        <one-region v-bind:region="city"></one-region>
+                </v-col>
+            </v-row>
+                            </v-tab-item>
+                            <v-tab-item key="Estados">
+                                <div class="estado-bar">
+                                    <region
+                                    v-bind:regions="selected"
+                                    v-bind:key="keyNum"
+                                    ></region>
+                                </div>
+                            </v-tab-item>
+                        </v-tabs-items>
+                    
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
 
     </div>
 </template>
@@ -44,12 +61,14 @@
 
 <script>
 import Dados from "../../../example/index.js";
-import Region from "./charts/Region.vue"
+import Region from "./charts/Region.vue";
+import OneRegion from "./charts/OneRegion.vue";
 
 export default {
-    components: { Region },
+    components: { Region, OneRegion },
     data(){
         return {
+            tab: null,
             data: Dados.DF,
             drawer: true,
             keyNum:0,
@@ -122,5 +141,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
