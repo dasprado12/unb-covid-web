@@ -19,8 +19,8 @@ export default {
         return{
             pages: [
                 { title: "Projeto", router: "/", color: "white" },
-                { title: "Dados", router: "/Dados", color: "green lighten-2" },
-                // { title: "Dashboard", router: "/Login", color: "green lighten-2" },
+                // { title: "Dados", router: "/Dados", color: "green lighten-2" },
+                { title: "Dashboard", router: "/Login", color: "green lighten-2" },
             ]
         }
     }

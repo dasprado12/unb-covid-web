@@ -4,6 +4,7 @@ import endpoint from "../config/endpoint";
 const API_URLS = {
   USERS: endpoint.get("users"),
   HELPS: endpoint.get("help"),
+  SOS: endpoint.get("sos"),
   PROFILES: endpoint.get("users/profiles")
 };
 let token = localStorage.getItem("user_token");
@@ -26,6 +27,15 @@ export class User {
       headers: { Authorization: `Bearer ${token}` }
     });
   };
+}
+
+export class Sos{
+  constructor() { }
+
+  get_sos = () =>
+    axios.get(API_URLS.SOS,{
+      headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 export class Help {

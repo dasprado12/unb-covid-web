@@ -240,8 +240,6 @@ let NewUser = new Help();
               }
               if(dateFrom < currentDate && dateTo > currentDate){
                 return value
-              }else{
-                console.log('EU SOU MENOOOOOOOOR')
               }
             }
           },

@@ -5,7 +5,7 @@
       <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"> </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase grey--text">
         <span class="font-weight-light"> UnB </span>
-        <span> SOS </span>
+        <span> Solidaria </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="grey" @click="signout()" text>
@@ -113,14 +113,12 @@ export default {
         { icon: 'mdi-human', title: 'Usuários', route: '/usuarios' }
       ],
       solidaria_items: [
-        { icon: 'mdi-alert', title: 'Alertas', route: '/alertas' },
+        { icon: 'mdi-alert', title: 'Alertas', route: '/' },
         { icon: 'mdi-map-marker', title: 'Map', route: '/map' },
         { icon: 'mdi-map-marker-circle', title: 'Heat Map', route: '/heatmap' },
       ],
       sos_items: [
-        { icon: 'mdi-alert', title: 'Alertas', route: '/sos/alertas' },
-        { icon: 'mdi-map-marker', title: 'Map', route: '/sos/map' },
-        { icon: 'mdi-map-marker-circle', title: 'Heat Map', route: '/sos/heatmap' },
+        { icon: 'mdi-alert', title: 'Alertas', route: '/sos/socorro' },
       ],
       // sesdf_items: [
       //   { icon: 'mdi-map-marker', title: 'DFMap', route: '/DFmap' }
