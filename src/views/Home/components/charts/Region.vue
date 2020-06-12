@@ -6,16 +6,17 @@
             <v-col cols="12" md="8">
                 <v-card>
                     <v-card-title>
-                        Brasil
+                        DF
                     </v-card-title>
-                <v-card-text>
-                    <line-chart
-                        v-bind:infected="infectados"
-                        v-bind:time="dates"
-                        v-bind:death="obitos"
-                        :key="numId"
-                    />
-                </v-card-text>
+                    <v-card-text>
+                        <bar-chart
+                            v-bind:infected="infectados"
+                            v-bind:time="dates"
+                            v-bind:death="obitos"
+                            v-bind:region="regions"
+                            :key="numId"
+                        />
+                    </v-card-text>
                     <v-container fluid>
                             <v-row justify="space_around">
                                 <v-checkbox v-model="selected" label="Infectados" value="Infectados"></v-checkbox>
@@ -33,15 +34,18 @@
 <script>
 import data from "../../../../example/index.js"
 import dates from "../../../../example/dates.js"
-import lineChart from "./LineChart.vue"
+import barChart from "./BarChart.vue";
 
 export default {
+    props: [ 
+        'regions'
+    ],
     components: { 
-        lineChart
+        barChart
     },
     data(){
         return {
-            name: 'Brasil',
+            name: 'DF',
             selected: ['Infectados', 'Obitos'],
             dates: dates.dates,
             dados: data.DF,
@@ -64,13 +68,25 @@ export default {
     },
     methods: {
         filter_data(){
-            for(let i = 0; i < this.dates.length; i++ ){
+            let tamanho = this.dates.length - 1;
+            let day = this.dates[tamanho];
+
+            //para cada regiao
+            for(let i = 0; i < this.regions.length; i++ ){
                 let infectados = 0
                 let obitos = 0
                 for(let j = 0; j < this.dados.length; j++){
-                    if( this.dates[i] == this.dados[j].dataExtracao ){
+                    //compara se a regiao coincide
+
+                    if( this.regions[i] == this.dados[j].regiao.toUpperCase() ){
+                        console.log(this.dados[j].dataExtracao);
+                        //compara se a data coincide
+                        if(day == this.dados[j].dataExtracao){
+            
                         infectados += this.dados[j].num
                         obitos += this.dados[j].obitos
+                        console.log("obitos "+ obitos);
+                        }
                     }
                 }
                 this.dados_filtrados.infectados.push(infectados)
@@ -109,3 +125,5 @@ export default {
     align-content: center;
 }
 </style>
+
+

@@ -14,9 +14,10 @@ export default {
 
     }
   },
-  destroyed(){
-    localStorage.removeItem('user_token')
-    alert('EU FUI DESTRUIDO')
-  }
+  // beforeDestroy
+  // destroyed(){
+  //   localStorage.removeItem('user_token')
+  //   alert('EU FUI DESTRUIDO')
+  // }
 };
 </script>

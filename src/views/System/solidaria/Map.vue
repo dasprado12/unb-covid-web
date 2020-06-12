@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { Help } from "../../functions/index.js"
+import { Help } from "../../../functions/index.js"
 let NewHelp = new Help();
 
 export default {

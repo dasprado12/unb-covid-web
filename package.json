@@ -14,9 +14,12 @@
     "bootstrap-vue": "^2.4.1",
     "core-js": "^3.4.4",
     "dwy-vue-session": "^1.0.9",
+    "fusioncharts": "^3.15.1-sr.1",
+    "leaflet": "^1.6.0",
     "lottie-vuejs": "^0.3.7",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.3",
+    "vue-fusioncharts": "^3.0.4",
     "vue-google-heatmap": "^1.0.1",
     "vue-localstorage": "^0.6.2",
     "vue-lottie": "^0.2.1",
@@ -24,6 +27,7 @@
     "vue-session": "^1.0.0",
     "vue2-gmap-custom-marker": "^5.6.0",
     "vue2-google-maps": "^0.10.7",
+    "vue2-leaflet": "^2.5.2",
     "vuetify": "^2.1.0"
   },
   "devDependencies": {

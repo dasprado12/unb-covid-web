@@ -168,7 +168,7 @@
 </template>
 
 <script>
-import { Help } from "../../functions/index.js"
+import { Help } from "../../../functions/index.js"
 
 let NewUser = new Help();
 
@@ -240,8 +240,6 @@ let NewUser = new Help();
               }
               if(dateFrom < currentDate && dateTo > currentDate){
                 return value
-              }else{
-                console.log('EU SOU MENOOOOOOOOR')
               }
             }
           },

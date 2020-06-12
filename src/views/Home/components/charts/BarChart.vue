@@ -2,7 +2,8 @@
     <div id="app">
         <vue-apex-charts 
             width="100%"
-            type="line" 
+            type="bar" 
+            height="auto"
             :options="options" 
             :series="series"
             :key="numId"
@@ -15,7 +16,7 @@ import VueApexCharts from 'vue-apexcharts'
 
 export default {
     props: [ 
-        'infected', 'time', 'death'
+        'infected', 'time', 'death', 'region'
     ],
     components: {
         VueApexCharts
@@ -35,31 +36,18 @@ export default {
                 name: 'chart'
             },
             options: {
-                // annotations: {
-                //     yaxis: [
-                //         {
-                //             y: 600,
-                //             borderColor: '#00E396',
-                //             label: {
-                //                 borderColor: '#00E396',
-                //                 style: {
-                //                     color: '#111111',
-                //                     background: '#dadada'
-                //                 },
-                //                 text: 'Capacidade do sistema de saúde'
-                //             }
-                //         }
-                //     ]
-                // },
-                stroke: {
-                    curve: 'smooth',
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        barHeight: '100%',
+                    }
                 },
                 colors: [ '#2E93fA', '#c21f1f' ],
                 chart: {
                     id: 'vuechart-example'
                 },
                 xaxis: {
-                    categories: this.time
+                    categories: this.region
                 }
             },
             series: [

@@ -1,6 +1,6 @@
 <template>
     <div>
-        oi
+        Esta é uma página do projeto
     </div>
 </template>
 

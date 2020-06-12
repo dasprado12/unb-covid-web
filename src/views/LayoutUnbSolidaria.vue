@@ -11,8 +11,8 @@
 
 
 <script>
-import Toolbar from "./System/components/Toolbar"
-import Footer from "./System/components/Footer.vue"
+import Toolbar from "../component/Toolbar"
+import Footer from "../component/Footer.vue"
 
 export default {
   components: {
