@@ -13,11 +13,6 @@ export default {
     return {
 
     }
-  },
-  // beforeDestroy
-  // destroyed(){
-  //   localStorage.removeItem('user_token')
-  //   alert('EU FUI DESTRUIDO')
-  // }
+  }
 };
 </script>
