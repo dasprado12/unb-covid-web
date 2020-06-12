@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- {{ alerts }} -->
         <v-data-table
             :headers="headers"
             :items="alerts"
