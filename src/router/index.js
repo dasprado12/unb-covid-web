@@ -2,17 +2,18 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../Auth/Login.vue";
 
-import LayoutUnbSolidaria from "../views/LayoutUnbSolidaria.vue";
-import Usuarios from "../views/System/Users.vue";
-import Maps from "../views/System/solidaria/Map.vue";
-import Alertas from "../views/System/solidaria/Alerts.vue";
-import Heat from "../views/System/solidaria/HeatMap.vue";
+import ChooseSystem from "../views/Layout.vue";
+
+import UnBSolidaria from "../views/LayoutSolidaria.vue";
+import Usuarios from "../views/Commom/Users.vue";
+import Maps from "../views/Solidaria/Map.vue";
+import Alertas from "../views/Solidaria/Alerts.vue";
+import Heat from "../views/Solidaria/HeatMap.vue";
 
 
-import Socorro from "../views/System/sos/Alerts.vue";
 
-// import HomeLayout from "../views/LayoutHome.vue";
-// import Home from "../views/Home/Home.vue";
+import UnBSOS from "../views/LayoutSos.vue";
+import sosAlertas from "../views/Sos/Alerts.vue";
 // import Dados from "../views/Home/Dados.vue";
 // import Teste from "../views/Home/components/charts/TreeChart.vue";
 
@@ -20,35 +21,51 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    component: LayoutUnbSolidaria,
+    path: '/',
+    name: 'ChooseSystem',
+    component: ChooseSystem,
+  },
+  {    
+    path: '/solidaria',
+    component: UnBSolidaria,
     children: [
-        {
-          path: "/map",
-          name: "maps",
-          component: Maps,
-        },
-        {
-          path: "/usuarios",
-          name: "usuarios",
-          component: Usuarios
-        },
-        {
-          path: "/",
-          name: "alertas",
-          component: Alertas
-        },
-        {
-          path: "/heatmap",
-          name: "heat",
-          component: Heat
-        },
-        {
-          path: "/sos/socorro",
-          name: "socorro",
-          component: Socorro
-        }
-    ],
+      {
+        path: "/solidaria/alertas",
+        name: "alertas",
+        component: Alertas
+      },
+      {
+        path: "/solidaria/usuarios",
+        name: "usuarios",
+        component: Usuarios
+      },
+      {
+        path: "/solidaria/map",
+        name: "maps",
+        component: Maps,
+      },
+      {
+        path: "/solidaria/heatmap",
+        name: "heat",
+        component: Heat
+      }
+    ]
+  },
+  {
+    path: '/sos',
+    component: UnBSOS,
+    children: [
+      {
+        path: "/sos/alertas",
+        name: "alertas",
+        component: sosAlertas
+      },
+      {
+        path: "/sos/usuarios",
+        name: "usuarios",
+        component: Usuarios
+      }
+    ]
   },
   {
     path: "/login",
