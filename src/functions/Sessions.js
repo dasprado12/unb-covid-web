@@ -14,12 +14,14 @@ export class Session {
         let email = localStorage.getItem('user_email')
         let whatsapp = localStorage.getItem('user_whatsapp')
         let token = localStorage.getItem('user_token')
+        let role = localStorage.getItem('user_profile.role')
         let user = {
             "name": name,
             "id": id,
             "email": email,
             "whatsapp": whatsapp,
             "token": token,
+            "role": role,
         }
         return user
     }

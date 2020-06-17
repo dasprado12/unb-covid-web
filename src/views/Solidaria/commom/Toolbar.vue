@@ -91,6 +91,7 @@ export default {
   },
   mounted(){
     this.get_user()
+    this.profile();
   },
   methods: {
     get_user(){
@@ -102,6 +103,12 @@ export default {
     signout(){
       localStorage.clear()
       location.href = '/'
+    },
+    profile(){
+      let profile = localStorage.getItem('user_profile')
+      if(profile != "admin"){
+        this.items.pop();
+      }
     }
   }
 };

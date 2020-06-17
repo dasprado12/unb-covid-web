@@ -17,22 +17,54 @@
 </template>
 
 <script>
+  console.log("teste")
+
+  console.log(localStorage.getItem('user_name'))
 
 export default {
 
   data(){
     return {
-      links: [
-        { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
-        { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
-      ]
+
+      links: []
     }
   },
   methods: {
     doSomething(link){
       console.log(link)
       location.href = link;
+    },
+     verifyProfile(){
+      let profile = localStorage.getItem('user_profile')
+      if(profile ==="admin"){
+        console.log("admin admin admin");
+        this.links= [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+          { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
+      }
+      else if(profile ==="vigilante"){
+          this.links= [
+        { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
+      }
+      else if(profile==="profissional"){
+          this.links= [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+        ]        
+      }
+      else{
+        //mudar esse else quando o sistema estiver completo
+        this.links= [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+          { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
+      }
     }
+  },
+  mounted(){
+      this.verifyProfile();
   }
+  
 };
 </script>

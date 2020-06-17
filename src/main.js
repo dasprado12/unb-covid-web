@@ -7,10 +7,8 @@ import VueSession from "vue-session";
 import VueLocalStorage from "vue-localstorage";
 import MultiFiltersPlugin from "./plugins/MultiFilters";
 import VueGoogleHeatmap from "vue-google-heatmap";
-import VueFusionCharts from 'vue-fusioncharts';
-import FusionCharts from 'fusioncharts';
-
-
+import VueFusionCharts from "vue-fusioncharts";
+import FusionCharts from "fusioncharts";
 
 let googleMapKey = "AIzaSyDhD5AZQnSDAnu4K1qJiytbzk7v4m9N17k";
 
@@ -31,7 +29,7 @@ Vue.use(VueGoogleHeatmap, {
 
 Vue.use(VueSession);
 
-Vue.use(MultiFiltersPlugin); 
+Vue.use(MultiFiltersPlugin);
 
 Vue.config.productionTip = false;
 
