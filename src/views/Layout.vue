@@ -22,17 +22,41 @@ export default {
 
   data(){
     return {
-      links: [
-        { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
-        { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
-      ]
+
+      links: []
     }
   },
   methods: {
     doSomething(link){
-      console.log(link)
       location.href = link;
+    },
+     verifyProfile(){
+      let profile = localStorage.getItem('user_profile')
+      if(profile ==="admin"){
+        this.links= [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+          { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
+      }
+      else if(profile ==="vigilante"){
+          this.links= [
+        { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
+      }
+      else if(profile==="profissional"){
+          this.links= [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+        ]        
+      }
+      else{
+        //mudar esse else quando o sistema estiver completo
+        this.links= []
+      }
     }
+  },
+  mounted(){
+      this.verifyProfile();
   }
+  
 };
 </script>
