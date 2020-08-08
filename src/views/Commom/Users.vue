@@ -27,10 +27,10 @@
               </v-card-title>
               <v-card-text>
                 <v-container>
-                  <v-img
+                  <!-- <v-img
                     height="100%"
-                    src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
-                  />
+                    src="https://cdn.vuetifyjs.com/images/cards/preson.jpg"
+                  /> -->
                   <v-row>
                     <v-col cols="12" sm="66" md="6">
                       <v-text-field v-model="editedItem.email" label="Email" disabled></v-text-field>

@@ -72,33 +72,7 @@ const routes = [
     name: "login",
     component: Login
   }
-  // },
-  // {
-  //   path: "/",
-  //   component: HomeLayout,
-  //   children: [
-  //       {
-  //         path: "/",
-  //         name: "home",
-  //         component: Home,
-  //       },
-  //       {
-  //         path: "/Dados",
-  //         name: "dados",
-  //         component: Dados,
-  //       },
-  //       {
-  //         path: "/login",
-  //         name: "Login",
-  //         component: Login
-  //       },
-  //       {
-  //         path: "/teste",
-  //         name: "Teste",
-  //         component: Teste
-  //       }
-  //   ]
-  // }
+
 ];
 
 const router = new VueRouter({

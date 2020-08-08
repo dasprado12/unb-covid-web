@@ -1,6 +1,17 @@
 <template>
   <v-app class="grey lighten-4">
     <v-container>
+    <v-app-bar flat app>
+      <v-toolbar-title class="text-uppercase grey--text">
+        <span class="font-weight-light"> UnB </span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn color="grey" @click="signout()" text>
+        <span> Sign Out </span>
+        <v-icon right> fas fa-sign-out-alt </v-icon>
+      </v-btn>
+    </v-app-bar><br><br><br>
       <!-- Each group -->
       <v-row v-for="link in links" :key="link.key">
           <v-col cols="12" xs="12" sm="12" md="12" lg="12">

@@ -13,6 +13,14 @@ export default {
     return {
 
     }
+  },
+  methods:{
+    get_url(){
+
+    }
+  },
+  created(){
+    console.log(process.env.VUE_APP_URL)
   }
 };
 </script>

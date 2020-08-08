@@ -31,23 +31,24 @@ export default {
     },
     methods:{
         async list_alerts(){
-        let alertas = (await NewHelp.get_helps()).data
-        let alerta = null
-        let all_alertas = []
-        let location = null
-        let latitude = null
-        let longitude = null
-        for(let i = 0; i < alertas.length; i++){
-            if( isNaN(alertas[i].user_location) ){
-                location = alertas[i].user_location.split(",")
-                latitude = location[0]
-                longitude= location[1]
-                alerta = { lat: parseFloat(latitude), lng: parseFloat(longitude) }
-                all_alertas.push(alerta)
+            let alertas = (await NewHelp.get_helps()).data
+            let alerta = null
+            let all_alertas = []
+            let location = null
+            let latitude = null
+            let longitude = null
+            for(let i = 0; i < alertas.length; i++){
+                if( isNaN(alertas[i].user_location) ){
+                    location = alertas[i].user_location.split(",")
+                    latitude = location[0]
+                    longitude= location[1]
+                    alerta = { lat: parseFloat(latitude), lng: parseFloat(longitude) }
+                    all_alertas.push(alerta)
+                }
             }
-        }
             this.points = all_alertas
             this.$refs.reloadComponent.$forceUpdate()
+            this.componentKey++
         },
         reload(){
             this.$refs.reloadComponent.$forceUpdate()
