@@ -11,7 +11,9 @@
                     <lista v-bind:alerts="alerts"></lista>
                 </v-tab-item>
                 <v-tab-item key="Estados">
-                    <mapa></mapa>
+                    <div>
+                        <mapa :alerts="alerts"></mapa>
+                    </div>
                 </v-tab-item>
             </v-tabs-items>
         </v-card>
@@ -21,7 +23,7 @@
 <script>
 import { Sos } from "../../functions/index.js"
 import Lista from "./components/List.vue"
-import Mapa from "./components/Map.vue"
+import Mapa from "../Commom/Maps.vue"
 
 let sos = new Sos()
 

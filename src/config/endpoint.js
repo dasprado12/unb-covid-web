@@ -6,9 +6,9 @@ const endpoint = Object.freeze({
     // if (process.env.ENVIRONMENT == "production") {
     //   environment = "prod";
     // }
-    console.log(endpoint[environment])
-    console.log(address)
-    return `http://${endpoint[environment]}/${address}`;
+    // console.log(endpoint[environment])
+    // console.log(address)
+    return `https://${endpoint[environment]}/${address}`;
   }
 });
 

@@ -8,7 +8,7 @@
         <span> Sign Out </span>
         <v-icon right> fas fa-sign-out-alt </v-icon>
       </v-btn>
-        </nav>
+        </nav>{{links}}
         <v-card class="red lighten-1">
           <v-card-title>Você não tem permissão para visualizar esse painel</v-card-title>
         </v-card>
@@ -33,8 +33,10 @@ export default {
 
   data(){
     return {
-
-      links: []
+      links: [
+          { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
+          { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
+        ]
     }
   },
   methods: {
@@ -45,9 +47,9 @@ export default {
       localStorage.clear()
       location.href = '/'
     },
-     verifyProfile(){
+    verifyProfile(){
       let profile = localStorage.getItem('user_profile')
-      if(profile ==="admin"){
+      if(profile ==="aluno"){
         this.links= [
           { key: 1, name: 'UnB Solidaria', color: 'red lighten-1', link: '/solidaria' },
           { key: 2, name: 'SOS UnB', color: 'green lighten-1', link: '/sos' }
@@ -70,7 +72,7 @@ export default {
     }
   },
   mounted(){
-      this.verifyProfile();
+      // this.verifyProfile();
   }
   
 };

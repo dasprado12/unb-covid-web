@@ -81,7 +81,7 @@ export default {
       nulo: "Maria",
       items: [
         { icon: 'mdi-alert', title: 'Alertas', route: '/sos/alertas' },
-        { icon: 'mdi-human', title: 'Usuários', route: '/sos/usuarios' },
+        { icon: 'mdi-alert', title: 'Usuários', route: '/sos/usuarios' },
       ],
       name: "Meu nome",
       role: "Meu papel",

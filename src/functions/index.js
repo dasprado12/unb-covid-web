@@ -46,3 +46,13 @@ export class Help {
       headers: { Authorization: `Bearer ${token}` }
     });
 }
+
+export class Test {
+  constructor(){}
+
+  token = () => {
+    axios.get(API_URLS.SOS,{
+      headers: { Authorization: `Bearer ${token}` }
+    })
+  }
+}

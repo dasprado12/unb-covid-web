@@ -13,6 +13,14 @@ export default {
     return {
 
     }
+  },
+  created(){
+    document.addEventListener('beforeunload', this.handler)
+  },
+  mounted: {
+    handler(){
+      localStorage.clear()
+    }
   }
 };
 </script>

@@ -15,6 +15,8 @@
     "core-js": "^3.4.4",
     "dwy-vue-session": "^1.0.9",
     "fusioncharts": "^3.15.1-sr.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "leaflet": "^1.6.0",
     "lottie-vuejs": "^0.3.7",
     "vue": "^2.6.11",

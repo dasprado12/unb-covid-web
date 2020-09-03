@@ -4,8 +4,11 @@
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="4">
+            <v-card v-show="timeToShow" class="red" v-if="message" rounded>
+              Algo de errado aconteceu
+            </v-card>
             <v-card class="elevation-12">
-              <v-toolbar color="primary" dark flat>
+              <v-toolbar color="green" dark flat>
                 <v-toolbar-title>Login form</v-toolbar-title>
                 <v-spacer />
               </v-toolbar>
@@ -61,10 +64,21 @@ export default {
       login: {
         email: "",
         password: ""
-      }
+      },
+      message: '',
+      timeToShow: true
     };
   },
+  mounted(){
+    this.getMessage()
+  },
   methods: {
+    getMessage(){
+      if(this.$route.query){
+        this.message = this.$route.query.message
+        
+      }
+    },
     login_form() {
       const address = endpoint.get("sessions");
       axios.post(address, this.login).then(response => {
@@ -79,8 +93,9 @@ export default {
           localStorage.setItem("user_whatsapp", response.data.user.whatsapp);
           localStorage.setItem("user_profile", response.data.user.profile);
           localStorage.setItem("user_token", response.data.token);
-          location.href = "/";
+          
         } else {
+          alert(window.location.pathname)
           this.snackbar = true;
         }
       });
