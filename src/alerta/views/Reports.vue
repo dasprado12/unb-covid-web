@@ -6,6 +6,9 @@
                     <v-divider class="mx-4" inset vertical/>
                 <v-tab key="Estados">Mapa</v-tab>
             </v-tabs>
+        </v-card>
+        
+        <v-card class="content">
             <v-tabs-items v-model="tab">
                 <v-tab-item key="Brasil">
                     <lista v-bind:alerts="alerts"></lista>
@@ -47,5 +50,7 @@ export default {
 </script>
 
 <style scoped>
-
+.content{
+    margin-top: 1%;
+}
 </style>

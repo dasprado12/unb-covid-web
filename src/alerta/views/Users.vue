@@ -5,10 +5,19 @@
             :items="users"
             sort-by="calories"
             class="elevation-1"
+            :search="search"
         >
             <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-toolbar-title>Usuários</v-toolbar-title>
+                    <v-spacer/>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="mdi-search"
+                            label="Pesquisar"
+                            single-line
+                            hide-details
+                        ></v-text-field>
                     <v-dialog v-model="dialog" max-width="500px">
                     <v-card>
                         <v-card-title> <span class="headline">{{editedItem.name | capitalize}}</span> </v-card-title>
@@ -38,8 +47,7 @@
                         </v-card-text>
                         <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                        <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                        <v-btn color="red darken-1" text @click="close">Fechar</v-btn>
                         </v-card-actions>
                     </v-card>
                     </v-dialog>
@@ -89,6 +97,7 @@ let api_user = new User();
 export default {
     data: () => ({
     dialog: false,
+    search: "",
     headers: [
         { text: 'Name', align: 'start', sortable: false, value: 'name' },
         { text: 'Função', value: 'link_unb' },

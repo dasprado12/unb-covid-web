@@ -1,9 +1,9 @@
 <template>
-    <v-app>oi
+    <v-app>
         <tool-bar></tool-bar>
-        <v-content class="mx-6 mb-4">
-        <router-view></router-view>
-    </v-content>
+        <v-content class="mx-6 mb-4 mt-6">
+            <router-view class="router-view"></router-view>
+        </v-content>
     </v-app>
 </template>
 
@@ -21,3 +21,6 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+</style>

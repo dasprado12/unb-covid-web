@@ -1,5 +1,10 @@
 const colors = {
     light: {
+        cards: {
+            morning: "#e3bf49",
+            afternoon: "",
+            night: ""
+        },
         base: '#6f71bc',
         card: 'fffffd',
         background_card: '#dedede',
@@ -8,6 +13,11 @@ const colors = {
         }
     },
     dark: {
+        cards: {
+            morning: "",
+            afternoon: "",
+            night: ""
+        },
         base: '#4b4d82',
         card: '#1e1e1e',
         background_card: '#383838',

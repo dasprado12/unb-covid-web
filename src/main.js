@@ -79,6 +79,7 @@ Vue.filter('currentTime', function(value){
 })
 
 new Vue({
+  mode: 'history',
   router,
   vuetify,
   render: h => h(App)
