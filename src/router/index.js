@@ -32,7 +32,6 @@ const routes = [
       }
       if( !( Date.now() < decode.exp * 1000 ) ){
         next({name: "Login", query: { message: "error" }})
-        console.log('Something went wrong')
       }else{
         next()
       }
@@ -54,16 +53,17 @@ const routes = [
         component: AlertaUsers
       }
     ]
-  },
-  {
-    path: '*',
-    beforeEnter: (to, from, next) => {
-      next({name: "Login"})
-    }
   }
+  // {
+  //   path: '*',
+  //   beforeEnter: (next) => {
+  //     next({name: "Login"})
+  //   }
+  // }
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 

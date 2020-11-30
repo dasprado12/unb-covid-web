@@ -57,14 +57,6 @@ Vue.filter('capitalize', function(value){
 })
 
 Vue.filter('datetime', function(value){
-  // let date = new Date(value)
-  // let day = date.getUTCDay()
-  // let month = date.getDay()
-  // let year = date.getDay()
-  // let hour = date.getDay()
-  // let min = date.getMinutes()
-  // let seconds = date.getSeconds()
-  // let ret = day +"/"+month+"/"+year+"  "+hour+":"+min+":"+seconds
   return new Date(value)
 })
 
@@ -79,7 +71,6 @@ Vue.filter('currentTime', function(value){
 })
 
 new Vue({
-  mode: 'history',
   router,
   vuetify,
   render: h => h(App)
