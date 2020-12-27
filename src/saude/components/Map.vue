@@ -4,9 +4,10 @@
             <l-tile-layer :url="mapConfig.url"></l-tile-layer>
             <l-marker v-for="item in alerts" :lat-lng="item.user_location" :key="item.id">
                 <l-popup >
-                    <v-card width="600" flat>
+                    <v-card width="300" flat>
                         <v-card-title>
                             <!-- <span> <h2>{{item.name | capitalize}}</h2></span><br> -->
+                            <span> <h3>{{item.symptoms.toString()}}</h3></span><br>
                         </v-card-title>
                         <v-card-text>
                             <span>{{item.createdAt | datetime}}</span>
@@ -36,7 +37,7 @@ data () {
     return {
         mapConfig: {
             url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            zoom: 10,
+            zoom: 11,
             center: {
                 lat: -15.7431235,
                 lng: -47.8288423

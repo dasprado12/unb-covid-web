@@ -27,7 +27,7 @@
                             <td>{{ item.id }}</td>
                             <td>
                                 {{ item.name.split(" ")[0]   }}
-                                <span class="blurried">{{ item.name.split(" ")[1]   }}</span>
+                                <!-- <span class="blurried">{{ item.name.split(" ")[1]   }}</span> -->
                             </td>
                             <td> <v-chip v-for="i in item.symptoms" :key="i" :color="chipColor(i)"> {{ i }} </v-chip></td>
                             <td class="blurried">{{ item.whatsapp }}</td>
@@ -57,12 +57,6 @@ export default {
                 { text: 'Whatsapp', value: 'whatsapp' },
                 { text: 'Created at', value: 'createdAt' },
             ],
-        }
-    },
-    filters: {
-        coverLastName(item){
-            let arr = item.split(" ") 
-            return arr
         }
     },
     methods: {

@@ -27,17 +27,23 @@
                 <template v-slot:body="{ items }">
                     <tbody class="text--thin">
                         <tr v-for="(item, i) in items" :key="`${i}-${item.id}`" >
-                            <td>{{ item.id }}</td>
-                            <td> <v-chip v-for="i in item.symptoms" :key="i" > {{ i }} </v-chip></td>
+                            <!-- <td> <v-chip v-for="i in item.symptoms" :key="i" > {{ i }} </v-chip></td> -->
+                            <td>{{ item.symptoms.toString() }}</td>
                             <td>{{ item.createdAt | datetime }}</td>
-                            <td>{{ item.user_location }}</td>
+                            <td>{{ item.user_location.lat }}, {{ item.user_location.lng }}</td>
                         </tr>
                     </tbody>
                 </template>
             </v-data-table>
-            <v-dialog v-model="dialog">
+            <v-dialog v-model="dialog" width="600">
                 <v-card>
-                    {{ alerts | pretty }}
+                    <v-card-title> JSON </v-card-title>
+                    <v-divider/><br>
+                    <v-card-text>
+                        <pre>
+                            {{ JSON.stringify(changeArray(alerts), undefined, "\t") }}
+                        </pre>
+                    </v-card-text>
                 </v-card>
             </v-dialog>
     </v-card>
@@ -53,7 +59,6 @@ export default {
             dialog: false,
             search: '',
             headers: [
-                { text: 'ID', align: 'left', value: 'id', sortable: 'id' },
                 { text: 'Symptoms', value: 'symptoms' },
                 { text: 'Created at', value: 'createdAt' },
                 { text: 'Location', value: 'user_location' },
@@ -61,6 +66,7 @@ export default {
         }
     },
     filters: {
+        
         coverLastName(item){
             let arr = item.split(" ") 
             return arr
@@ -70,6 +76,14 @@ export default {
         }
     },
     methods: {
+        changeArray(item){
+            return item.map(function(item){ 
+                delete item.id
+                delete item.name
+                delete item.whatsapp
+                return item
+            })
+        },
         download(){
             alert("eae")
         },
