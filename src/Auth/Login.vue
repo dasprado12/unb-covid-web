@@ -2,13 +2,30 @@
   <v-app id="inspire">
   <div class="login-page">
   <div class="form">
+      <v-img class="logotipo" src="../assets/as_vert_cor.jpg" max-width="100" />
     <form class="login-form">
       <input type="text" placeholder="username" v-model="login.email"/>
       <input type="password" placeholder="password" v-model="login.password"/>
+      <div class="group-button">
+        <button :class="{ isSelected : isSos }" >Alerta</button>
+        <button  @click="login_form()">Saúde</button>
+      </div>
+        <v-container class="px-0" fluid>
+          <v-radio-group v-model="radioGroup">
+            <v-radio
+              v-for="n in options"
+              :key="n"
+              :label="`${n.name}`"
+              :value="n"
+            ></v-radio>
+          </v-radio-group>
+        </v-container>
       <button @click="login_form()">login</button>
+
       <p class="message"> <a href="https://www.unb.br">Universidade de Brasília</a></p>
     </form>
   </div>
+        
 </div>
     <v-snackbar v-model="snackbar">
       Email ou senha incorretos
@@ -30,6 +47,16 @@ export default {
   },
   data() {
     return {
+      isSos: true,
+      options: [
+        { name: "Administrador" },
+        { name: "Ministério da Saúde" },
+      ],
+      views: [
+        { name: "UnB SOS" },
+        { name: "UnB Alerta" }
+      ],
+      radioGroup: "Administrador",
       snackbar: false,
       login: {
         email: "",
@@ -50,8 +77,9 @@ export default {
     // },
     login_form() {
       const address = endpoint.get("sessions");
+      this.$router.push("/alerta")
       axios.post(address, this.login).then(response => {
-        console.log(response)
+        // console.log(response)
         // debugger;
         // && response.data.user.profile == "admin"
         if (response.status == 200 ) {
@@ -63,7 +91,6 @@ export default {
           localStorage.setItem("user_whatsapp", response.data.user.whatsapp);
           localStorage.setItem("user_profile", response.data.user.profile);
           localStorage.setItem("user_token", response.data.token);
-          this.$router.push("/alerta")
         }
       })
       .catch(() => {
@@ -77,6 +104,16 @@ export default {
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.group-button{
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.logotipo{
+  margin: auto;
+  margin-bottom: 30px;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -87,7 +124,7 @@ export default {
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: 0 auto 10px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -120,6 +157,7 @@ export default {
 .form button:hover,.form button:active,.form button:focus {
   background: #43A047;
 }
+
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;

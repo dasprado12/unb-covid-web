@@ -6,7 +6,7 @@
                 <l-popup >
                     <v-card width="600" flat>
                         <v-card-title>
-                            <span> <h2>{{item.name | capitalize}}</h2></span><br>
+                            <!-- <span> <h2>{{item.name | capitalize}}</h2></span><br> -->
                         </v-card-title>
                         <v-card-text>
                             <span>{{item.createdAt | datetime}}</span>

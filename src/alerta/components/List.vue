@@ -26,9 +26,9 @@
                         <tr v-for="(item, i) in items" :key="`${i}-${item.id}`">
                             <td>{{ item.id }}</td>
                             <td v-if="item.stauts"> {{ item.status }} </td>
-                            <td v-else> <v-chip color="red lighten-3"> Aberto </v-chip> </td>
+                            <td v-else> <v-chip color="red lighten-3"> Open </v-chip> </td>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.whatsapp }}</td>
+                            <td class="blurried">{{ item.whatsapp }}</td>
                             <td>{{ item.createdAt | datetime }}</td>
                             <!-- <td>
                                 <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
@@ -60,3 +60,15 @@ export default {
     },
     }
 </script>
+
+<style scoped>
+.blurried{
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(2px);
+    width: 10px;
+    height: 10px;
+}
+</style>

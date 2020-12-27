@@ -1,20 +1,20 @@
 <template>
     <div>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="blue darken-1">
             <v-toolbar-side-icon></v-toolbar-side-icon>
             <v-app-bar-nav-icon class="white--text" @click="drawer = !drawer"> </v-app-bar-nav-icon>
             <v-toolbar-title class="white--text">
                 <span class="white--text font-weight-light"> UnB </span>
-                <span class="white--text"> ALERTA </span>
+                <span class="white--text"> SAÚDE </span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon to="/alerta">
+            <v-btn icon to="/saude">
                     <v-icon>mdi-home</v-icon>
             </v-btn>
-            <v-btn icon to="/alerta/reports">
+            <v-btn icon to="/saude/reports">
                 <v-icon>mdi-exclamation</v-icon>
             </v-btn>
-            <v-btn icon to="/alerta/users">
+            <v-btn icon to="/saude/users">
                 <v-icon>mdi-account</v-icon>
             </v-btn>
             <v-btn icon @click="signout()">
